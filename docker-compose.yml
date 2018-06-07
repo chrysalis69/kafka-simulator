@@ -5,7 +5,11 @@ services:
     ports:
       - "2181:2181"
   kafka:
-    image: image-registry.ci.env:80/takealot/kafka:chef
+    build: kafka
     ports:
       - "9092"
-    command: ./bin/kafka-server-start.sh config/server.properties
+    environment:
+      HOSTNAME_COMMAND: hostname
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
