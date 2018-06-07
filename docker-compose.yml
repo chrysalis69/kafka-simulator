@@ -1,0 +1,11 @@
+version: '2'
+services:
+  zookeeper:
+    build: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: image-registry.ci.env:80/takealot/kafka:chef
+    ports:
+      - "9092"
+    command: ./bin/kafka-server-start.sh config/server.properties
