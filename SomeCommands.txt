@@ -1,0 +1,10 @@
+SOME COMMANDS
+
+
+
+
+
+
+docker exec kafka-simulator_kafka_1 -- bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 3 --partitions 1 --topic foobar
+bin/kafka-console-producer.sh --broker-list `broker-list.sh` --topic foobar
+bin/kafka-console-consumer.sh --bootstrap-server `broker-list.sh` --topic foobar --from-beginning --zookeeper zookeeper
