@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:7-jre-alpine
 
 # Install required packages
 RUN apk add --no-cache \

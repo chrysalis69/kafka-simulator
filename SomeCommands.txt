@@ -1,10 +1,25 @@
 SOME COMMANDS
 
 
+export HOST_IP="10.0.23.42"
 
-
-
-
-docker exec kafka-simulator_kafka_1 -- bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 3 --partitions 1 --topic foobar
+bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 3 --partitions 1 --topic foobar
 bin/kafka-console-producer.sh --broker-list `broker-list.sh` --topic foobar
 bin/kafka-console-consumer.sh --bootstrap-server `broker-list.sh` --topic foobar --from-beginning --zookeeper zookeeper
+
+
+bin/kafka-producer-perf-test.sh --topic foobar \
+--num-records 15000000 \
+--record-size 100 \
+--throughput 15000000 \
+--producer-props \
+acks=1 \
+bootstrap.servers=10.0.23.42:32790,10.0.23.42:32789,10.0.23.42:3278 \
+buffer.memory=67108864 \
+compression.type=none \
+batch.size=8196
+
+bin/kafka-consumer-perf-test.sh --topic foobar \
+--zookeeper zookeeper \
+--messages 15000000 \
+--threads 1
